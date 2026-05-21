@@ -14,6 +14,7 @@
 	<description>An app vulnerable to NoSQL injection built with a MongoDB database and the official Java driver</description>
 	<properties>
 		<java.version>11</java.version>
+		<tomcat.version>9.0.107</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
