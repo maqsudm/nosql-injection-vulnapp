@@ -7,6 +7,8 @@ package demo.nosqlinjectionvulnerableapp.util;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
@@ -24,6 +26,7 @@ import de.flapdoodle.embed.process.runtime.Network;
 
 public class MongoServerUtil {
 
+    private static final Logger LOGGER = Logger.getLogger(MongoServerUtil.class.getName());
     private static MongodExecutable mongodExecutable;
     
     public static void setupMongoDb() {
@@ -41,7 +44,7 @@ public class MongoServerUtil {
 			mongodExecutable = starter.prepare(mongodConfig);
 			mongodExecutable.start();
 		} catch(Exception e) {
-			System.out.println(e);
+			LOGGER.log(Level.SEVERE, "Failed to start embedded MongoDB", e);
 		}
 
 		try {
@@ -67,10 +70,10 @@ public class MongoServerUtil {
 			try {
 				collection.insertMany(users);
 			} catch (MongoException me) {
-				System.out.println(me);
+				LOGGER.log(Level.SEVERE, "Failed to insert contacts", me);
 			}
 		} catch(Exception e) {
-			System.out.println(e);
+			LOGGER.log(Level.SEVERE, "Failed to set up MongoDB collections", e);
 		}
 	}
 
